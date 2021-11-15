@@ -43,10 +43,12 @@ void USphereMovementComponent::SetupPlayerInputComponent(UInputComponent* Player
 
 void USphereMovementComponent::MoveForward(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("MoveForward: %f"), Value);
+	FVector Location = GetOwner()->GetActorLocation();
+	GetOwner()->SetActorLocation(FVector(MoveRadius * Value, Location.Y, Location.Z));
 }
 
 void USphereMovementComponent::MoveRight(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("MoveRight: %f"), Value);
+	FVector Location = GetOwner()->GetActorLocation();
+	GetOwner()->SetActorLocation(FVector(Location.X, MoveRadius * Value, Location.Z));
 }

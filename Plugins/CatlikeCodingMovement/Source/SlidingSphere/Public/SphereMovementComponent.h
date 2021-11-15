@@ -25,10 +25,15 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// Movement
 public:
 	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent);
 
 	void MoveForward(float Value);
 
 	void MoveRight(float Value);
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MoveRadius = 200.0f;
 };

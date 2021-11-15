@@ -31,14 +31,12 @@ void USphereMovementComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 	float ForwardValue = GetOwner()->GetInputAxisValue(ForwardAxis);
 	float RightValue = GetOwner()->GetInputAxisValue(RightAxis);
 	FVector InputVector(ForwardValue, RightValue, 0.0f);
-	FVector TargetLocation = InputVector.GetClampedToSize(0.0f, 1.0f) * MoveRadius;
+	FVector MoveOffset = InputVector.GetClampedToSize(0.0f, 1.0f) * MoveStep;
 
-	FVector Location = GetOwner()->GetActorLocation();
-	GetOwner()->SetActorLocation(FVector(TargetLocation.X, TargetLocation.Y, Location.Z));
+	GetOwner()->AddActorWorldOffset(MoveOffset);
 }
 
 void USphereMovementComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

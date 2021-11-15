@@ -31,5 +31,5 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MoveRadius = 200.0f;
+	float MoveStep = 5.0f;
 };

@@ -33,6 +33,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxSpeed = 300.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxAcceleration = 600.0f;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FVector Velocity;
 };

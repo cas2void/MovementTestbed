@@ -35,10 +35,28 @@ void USphereMovementComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	float RightValue = GetOwner()->GetInputAxisValue(RightAxis);
 	FVector InputVector(ForwardValue, RightValue, 0.0f);
 
-	FVector Acceleration = InputVector.GetClampedToSize(0.0f, 1.0f) * MaxSpeed;
-	Velocity += Acceleration * DeltaTime;
-	FVector LocationOffset = Velocity * DeltaTime;
+	FVector DesiredVelocity = InputVector.GetClampedToSize(0.0f, 1.0f) * MaxSpeed;
+	float MaxSpeedChange = MaxAcceleration * DeltaTime;
 
+	if (Velocity.X < DesiredVelocity.X)
+	{
+		Velocity.X = FMath::Min(Velocity.X + MaxSpeedChange, DesiredVelocity.X);
+	}
+	else if (Velocity.X > DesiredVelocity.X)
+	{
+		Velocity.X = FMath::Max(Velocity.X - MaxSpeedChange, DesiredVelocity.X);
+	}
+
+	if (Velocity.Y < DesiredVelocity.Y)
+	{
+		Velocity.Y = FMath::Min(Velocity.Y + MaxSpeedChange, DesiredVelocity.Y);
+	}
+	else if (Velocity.Y > DesiredVelocity.Y)
+	{
+		Velocity.Y = FMath::Max(Velocity.Y - MaxSpeedChange, DesiredVelocity.Y);
+	}
+
+	FVector LocationOffset = Velocity * DeltaTime;
 	GetOwner()->AddActorWorldOffset(LocationOffset);
 }
 

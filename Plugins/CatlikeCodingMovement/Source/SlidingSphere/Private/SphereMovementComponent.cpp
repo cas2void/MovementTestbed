@@ -34,7 +34,7 @@ void USphereMovementComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	float ForwardValue = GetOwner()->GetInputAxisValue(ForwardAxis);
 	float RightValue = GetOwner()->GetInputAxisValue(RightAxis);
 	FVector InputVector(ForwardValue, RightValue, 0.0f);
-	FVector MoveOffset = InputVector.GetClampedToSize(0.0f, 1.0f) * MoveStep;
+	FVector MoveOffset = InputVector.GetClampedToSize(0.0f, 1.0f) * DeltaTime * MaxSpeed;
 
 	GetOwner()->AddActorWorldOffset(MoveOffset);
 }

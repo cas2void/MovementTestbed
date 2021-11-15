@@ -31,5 +31,5 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MoveStep = 5.0f;
+	float MaxSpeed = 300.0f;
 };

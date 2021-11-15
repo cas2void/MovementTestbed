@@ -3,6 +3,9 @@
 
 #include "SphereMovementComponent.h"
 
+static FName ForwardAxis("MoveForward");
+static FName RightAxis("MoveRight");
+
 // Sets default values for this component's properties
 USphereMovementComponent::USphereMovementComponent()
 {
@@ -20,7 +23,6 @@ void USphereMovementComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
 }
 
 
@@ -30,25 +32,20 @@ void USphereMovementComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+	float ForwardValue = GetOwner()->GetInputAxisValue(ForwardAxis);
+	float RightValue = GetOwner()->GetInputAxisValue(RightAxis);
+	FVector InputVector(ForwardValue, RightValue, 0.0f);
+	FVector TargetLocation = InputVector.GetClampedToSize(0.0f, 1.0f) * MoveRadius;
+
+	FVector Location = GetOwner()->GetActorLocation();
+	GetOwner()->SetActorLocation(FVector(TargetLocation.X, TargetLocation.Y, Location.Z));
 }
 
 void USphereMovementComponent::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	if (PlayerInputComponent)
 	{
-		PlayerInputComponent->BindAxis("MoveForward", this, &USphereMovementComponent::MoveForward);
-		PlayerInputComponent->BindAxis("MoveRight", this, &USphereMovementComponent::MoveRight);
+		PlayerInputComponent->BindAxis(ForwardAxis);
+		PlayerInputComponent->BindAxis(RightAxis);
 	}
-}
-
-void USphereMovementComponent::MoveForward(float Value)
-{
-	FVector Location = GetOwner()->GetActorLocation();
-	GetOwner()->SetActorLocation(FVector(MoveRadius * Value, Location.Y, Location.Z));
-}
-
-void USphereMovementComponent::MoveRight(float Value)
-{
-	FVector Location = GetOwner()->GetActorLocation();
-	GetOwner()->SetActorLocation(FVector(Location.X, MoveRadius * Value, Location.Z));
 }

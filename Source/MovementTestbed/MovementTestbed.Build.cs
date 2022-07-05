@@ -1,8 +1,8 @@
 using UnrealBuildTool;
 
-public class MovementTutorials : ModuleRules
+public class MovementTestbed : ModuleRules
 {
-	public MovementTutorials(ReadOnlyTargetRules Target) : base(Target)
+	public MovementTestbed(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	

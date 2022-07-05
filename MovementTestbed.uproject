@@ -5,7 +5,7 @@
 	"Description": "",
 	"Modules": [
 		{
-			"Name": "MovementTutorials",
+			"Name": "MovementTestbed",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}
